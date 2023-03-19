@@ -9,7 +9,7 @@ public interface UserService extends CrudService<UserDTO, String>{
 //    UserDTO save(UserDTO user);
 //    UserDTO findById(String username);
 //    List<UserDTO> findAll();
-//    void delete(UserDTO user);
+//    void delete(UserDTO user); was delted
 //    void deleteById(String username);
 
 }
