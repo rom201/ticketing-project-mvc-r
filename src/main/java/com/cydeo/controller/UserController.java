@@ -53,19 +53,31 @@ public class UserController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-
         return "/user/update";
 
     }
 
 
-    @PostMapping("/update/{username}")
-    public String updateUser(@PathVariable("username") String username, UserDTO user){  //Spring understand no need Model and ModelAttribute
+    @PostMapping("/update")
+    public String updateUser( UserDTO user){  //Spring understand no need Model and ModelAttribute
 
         userService.update(user);
 
-
         return "redirect:/user/create";
     }
+
+    @GetMapping("/delete/{username}")
+    public String deleteUser(@PathVariable ("username") String usermane){
+
+        userService.deleteById(usermane);
+
+        return "redirect:/user/create";
+
+    }
+
+
+
+
+
 
 }
