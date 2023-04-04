@@ -94,17 +94,17 @@ public class TaskController {
         model.addAttribute("statuses", Status.values());
 
         return "task/status-update";
-
-
     }
 
+    @PostMapping("/employee/update/{id}")
+    public String employeeUpdateTask(TaskDTO taskDTO) {
 
+        System.out.println("looking for ID");
+        System.out.println(taskDTO.toString());
 
-
-
-
-
-
+        taskService.updateStatus(taskDTO);
+        return "redirect:/task/employee/pending-tasks";
+    }
 
     @GetMapping("/employee/archive")
     public String employeeArchivedTasks(Model model) {
