@@ -99,8 +99,8 @@ public class TaskController {
     @PostMapping("/employee/update/{id}")
     public String employeeUpdateTask(TaskDTO taskDTO) {
 
-        System.out.println("looking for ID");
-        System.out.println(taskDTO.toString());
+//        System.out.println("looking for ID");
+//        System.out.println(taskDTO.toString());
 
         taskService.updateStatus(taskDTO);
         return "redirect:/task/employee/pending-tasks";
