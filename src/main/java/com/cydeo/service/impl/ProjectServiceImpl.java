@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> implements ProjectService {
 
-    TaskService taskService;
+    private final TaskService taskService;
 
     public ProjectServiceImpl(TaskService taskService) {
         this.taskService = taskService;
