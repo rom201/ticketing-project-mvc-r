@@ -6,8 +6,10 @@ import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,8 +35,16 @@ public class ProjectController {
     }
 
     @PostMapping("/create")
-//    public String insertProject(@ModelAttribute("project") ProjectDTO object){
-    public String insertProject(ProjectDTO object){  // Spring got this
+    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO object, BindingResult bindingResult, Model model){
+//    public String insertProject(ProjectDTO object){  // Spring got this
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+
+            return "/project/create";
+        }
 
         projectService.save(object);
         return "redirect:/project/create";
@@ -64,7 +74,15 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-    public String updateProject( ProjectDTO project){
+//    public String updateProject( ProjectDTO project){
+    public String updateProject(@Valid @ModelAttribute ("project") ProjectDTO project, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+
+            return "/project/update";
+        }
 
         projectService.update(project);
 
