@@ -59,8 +59,8 @@
                                                     <label>Assigned Employee</label>
                                                     <select th:field="*{assignedEmployee}" name="assignedemployee" class="custom-select" readonly>
 <!--                                                        <option th:each="employee :${employees}"-->
-                                                        <option th:value="${task.employee.userName}"
-                                                                th:text="${task.employee.firstName+' '+task.employee.lastName}"></option>
+                                                        <option th:value="${task.assignedEmployee.userName}"
+                                                                th:text="${task.assignedEmployee.firstName+' '+task.assignedEmployee.lastName}"></option>
                                                     </select>
 
                                                     <div class="invalid-feedback"

@@ -39,8 +39,7 @@
                                                     <label for="firstname" class="col-form-label">First Name</label>
                                                     <input id="firstname" type="text" placeholder="first name"
                                                            th:field="*{firstName}" class="form-control">
-<!--                                                    <div class="invalid-feedback"-->
-                                                    <div
+                                                    <div class="invalid-feedback"
                                                             th:if="${#fields.hasErrors('firstName')}">
                                                         <ul>
                                                             <li th:each="err : ${#fields.errors('firstName')}"
