@@ -29,7 +29,7 @@ public class UserController {
         model.addAttribute("roles", roleService.findAll());
         model.addAttribute("users", userService.findAll());
 
-        return "user/create";
+        return "/user/create";
     }
 
     @PostMapping("/create")
@@ -40,17 +40,11 @@ public class UserController {
             model.addAttribute("roles", roleService.findAll());
             model.addAttribute("users", userService.findAll());
 
-            return "user/create";
+            return "/user/create";
         }
 
-//        model.addAttribute("user", new UserDTO());
-//        model.addAttribute("roles", roleService.findAll());
-
         userService.save(user);
-//        model.addAttribute("users", userService.findAll());
-
-//        return "user/create";
-        return "redirect:/user/create";  //now everything updated itself
+        return "redirect:/user/create";
     }
 
     @GetMapping("/update/{username}")
