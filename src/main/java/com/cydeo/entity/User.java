@@ -22,7 +22,7 @@ public class User extends BaseEntity{
     private String phone;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
