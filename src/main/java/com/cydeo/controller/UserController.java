@@ -32,51 +32,48 @@ public class UserController {
         return "/user/create";
     }
 
-//    @PostMapping("/create")
-//    public String insertUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
-//
-//        if(bindingResult.hasErrors()){
-//
-//            model.addAttribute("roles", roleService.findAll());
-//            model.addAttribute("users", userService.findAll());
-//
-//            return "/user/create";
-//        }
-//
-//        userService.save(user);
-//        return "redirect:/user/create";
-//    }
-//
-//    @GetMapping("/update/{username}")
-//    public String editUser(@PathVariable ("username") String usermane, Model model){
-//
-//        //user
-//        //role
-//        //users
-//        model.addAttribute("user",userService.findById(usermane));
-//        model.addAttribute("roles", roleService.findAll());
-//        model.addAttribute("users", userService.findAll());
-//
-//        return "/user/update";
-//
-//    }
-//
-//
-//    @PostMapping("/update")
-////    public String updateUser( UserDTO user){  //Spring understand no need Model and ModelAttribute
-//    public String updateUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
-//
-//        if(bindingResult.hasErrors()){
-//
-//            model.addAttribute("roles", roleService.findAll());
-//            model.addAttribute("users", userService.findAll());
-//            return "/user/update";
-//        }
-//
-//        userService.update(user);
-//        return "redirect:/user/create";
-//    }
-//
+    @PostMapping("/create")
+    public String insertUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("roles", roleService.listAllRoles());
+            model.addAttribute("users", userService.listAllUsers());
+
+            return "/user/create";
+        }
+
+        userService.save(user);
+        return "redirect:/user/create";
+    }
+
+    @GetMapping("/update/{username}")
+    public String editUser(@PathVariable ("username") String usermane, Model model){
+
+        model.addAttribute("user",userService.findByUserName(usermane));
+        model.addAttribute("roles", roleService.listAllRoles());
+        model.addAttribute("users", userService.listAllUsers());
+
+        return "/user/update";
+
+    }
+
+
+    @PostMapping("/update")
+//    public String updateUser( UserDTO user){  //Spring understand no need Model and ModelAttribute
+    public String updateUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("roles", roleService.listAllRoles());
+            model.addAttribute("users", userService.listAllUsers());
+            return "/user/update";
+        }
+
+        userService.update(user);
+        return "redirect:/user/create";
+    }
+
 //    @GetMapping("/delete/{username}")
 //    public String deleteUser(@PathVariable ("username") String usermane){
 //
