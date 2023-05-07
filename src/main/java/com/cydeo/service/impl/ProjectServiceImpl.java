@@ -45,9 +45,6 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectMapper.convertToEntity(dto);
         projectRepository.save(project);
 
-
-
-
     }
 
     @Override
@@ -61,6 +58,15 @@ public class ProjectServiceImpl implements ProjectService {
         Project proj = projectRepository.findByProjectCode(code);
         proj.setIsDeleted(true);
         projectRepository.save(proj);
+
+    }
+
+    @Override
+    public void complete(String projectCode) {
+        Project proj = projectRepository.findByProjectCode(projectCode);
+        proj.setProjectStatus(Status.COMPLETE);
+        projectRepository.save(proj);
+
 
     }
 }
