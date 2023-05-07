@@ -2,6 +2,8 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.TaskDTO;
 import com.cydeo.enums.Status;
+import com.cydeo.service.ProjectService;
+import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -15,42 +17,42 @@ import javax.validation.Valid;
 @RequestMapping("/task")
 public class TaskController {
 
-//    UserService userService;
-//    ProjectService projectService;
-//    TaskService taskService;
-//
-//    public TaskController(UserService userService, ProjectService projectService, TaskService taskService) {
-//        this.userService = userService;
-//        this.projectService = projectService;
-//        this.taskService = taskService;
-//    }
-//
-//    @GetMapping("/create")
-//    public String createTask(Model model){
-//
-//        model.addAttribute("task", new TaskDTO());
-//        model.addAttribute("projects", projectService.findAll());
-//        model.addAttribute("employees", userService.findEmployees());
-//        model.addAttribute("tasks", taskService.findAll());
-//
-//        return "task/create";
-//    }
-//
-//    @PostMapping("/create")
-////    public String insertTask(TaskDTO task){
-//    public String insertTask(@Valid @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model){
-//
-//        if(bindingResult.hasErrors()){
-//
-//            model.addAttribute("projects", projectService.findAll());
-//            model.addAttribute("employees", userService.findEmployees());
-//            model.addAttribute("tasks", taskService.findAll());
-//            return "task/create";
-//        }
-//
-//        taskService.save(task);
-//        return "redirect:/task/create";
-//    }
+    UserService userService;
+    ProjectService projectService;
+    TaskService taskService;
+
+    public TaskController(UserService userService, ProjectService projectService, TaskService taskService) {
+        this.userService = userService;
+        this.projectService = projectService;
+        this.taskService = taskService;
+    }
+
+    @GetMapping("/create")
+    public String createTask(Model model){
+
+        model.addAttribute("task", new TaskDTO());
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("employees", userService.listAllByRole("employee"));
+        model.addAttribute("tasks", taskService.listAllTasks());
+
+        return "task/create";
+    }
+
+    @PostMapping("/create")
+//    public String insertTask(TaskDTO task){
+    public String insertTask(@Valid @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("projects", projectService.listAllProjects());
+            model.addAttribute("employees", userService.listAllByRole("employee"));
+            model.addAttribute("tasks", taskService.listAllTasks());
+            return "task/create";
+        }
+
+        taskService.save(task);
+        return "redirect:/task/create";
+    }
 //
 //    @GetMapping("/delete/{taskId}")
 //    public String deleteTask(@PathVariable ("taskId") Long taskId){
