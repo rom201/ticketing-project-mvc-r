@@ -73,31 +73,31 @@ public class TaskController {
         return "task/update";
 
     }
-//
-////    @PostMapping("/update/{taskId}")
-////    public String updateTask(@PathVariable("taskId") Long taskId, TaskDTO task) {
-////        task.setId(taskId);                  //can be done by Spring
-////        taskService.update(task);
-////        return "redirect:/task/create";
-////    }
-//
-//
-//    @PostMapping("/update/{id}")  // {id} here should be same as in the Model field theSpring going to set that id
-////    public String updateTask(TaskDTO task) {
-//    public String updateTask(@Valid @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model) {
-//
-//        if(bindingResult.hasErrors()){
-//
-//            model.addAttribute("projects", projectService.findAll());
-//            model.addAttribute("employees", userService.findEmployees());
-//            model.addAttribute("tasks", taskService.findAll());
-//            return "task/update";
-//        }
-//
+
+//    @PostMapping("/update/{taskId}")
+//    public String updateTask(@PathVariable("taskId") Long taskId, TaskDTO task) {
+//        task.setId(taskId);                  //can be done by Spring
 //        taskService.update(task);
 //        return "redirect:/task/create";
 //    }
-//
+
+
+    @PostMapping("/update/{id}")  // {id} here should be same as in the Model field theSpring going to set that id
+//    public String updateTask(TaskDTO task) {
+    public String updateTask(@Valid @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("projects", projectService.listAllProjects());
+            model.addAttribute("employees", userService.listAllByRole("employee"));
+            model.addAttribute("tasks", taskService.listAllTasks());
+            return "task/update";
+        }
+
+        taskService.update(task);
+        return "redirect:/task/create";
+    }
+
 //
 //    @GetMapping("/employee/pending-tasks")
 //    public String employeePendingTasks(Model model) {
