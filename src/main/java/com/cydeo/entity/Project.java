@@ -21,19 +21,23 @@ import java.time.LocalDate;
 @Where(clause = "is_deleted=false")
 public class Project extends BaseEntity{
 
-
     @Column(unique = true)
-    private String projectName;
     private String projectCode;
+
+    private String projectName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private User assignedManager;
+
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
+
     @Column(columnDefinition = "DATE")
     private LocalDate endDate;
+
     private String projectDetail;
+
     @Enumerated(EnumType.STRING)
     private Status projectStatus;
 

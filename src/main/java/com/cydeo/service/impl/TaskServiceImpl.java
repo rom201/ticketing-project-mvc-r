@@ -49,9 +49,6 @@ public class TaskServiceImpl implements TaskService {
         dto.setAssignedDate(LocalDate.now());
         Task task = taskMapper.convertToEntity(dto);
         taskRepository.save(task);
-
-
-
     }
 
     @Override
@@ -66,10 +63,6 @@ public class TaskServiceImpl implements TaskService {
             convertedTask.setAssignedDate(task.get().getAssignedDate());
             taskRepository.save(convertedTask);
         }
-
-
-
-
     }
 
     @Override
@@ -80,6 +73,17 @@ public class TaskServiceImpl implements TaskService {
         if(myTask.isPresent()){
             myTask.get().setIsDeleted(true);
             taskRepository.save(myTask.get());
-        }
+        }//can be exception
+    }
+
+
+    @Override
+    public int totalNonCompletedTask(String projectCode) {
+        return taskRepository.totalNonCompletedTasks(projectCode);
+    }
+
+    @Override
+    public int totalCompletedTask(String projectCode) {
+        return taskRepository.totalCompletedTasks(projectCode);
     }
 }
