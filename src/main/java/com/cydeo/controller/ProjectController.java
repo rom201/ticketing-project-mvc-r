@@ -35,8 +35,8 @@ public class ProjectController {
         return "/project/create";
     }
 
-    @PostMapping("/create")
-    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO object, BindingResult bindingResult, Model model){
+    @PostMapping("/create")   // @Valid
+    public String insertProject(@ModelAttribute("project") ProjectDTO object, BindingResult bindingResult, Model model){
 //    public String insertProject(ProjectDTO object){  // Spring got this
 
         if(bindingResult.hasErrors()){
@@ -77,8 +77,8 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-//    public String updateProject( ProjectDTO project){
-    public String updateProject(@Valid @ModelAttribute ("project") ProjectDTO project, BindingResult bindingResult, Model model){
+//    public String updateProject( ProjectDTO project){  //@Valid
+    public String updateProject(@ModelAttribute ("project") ProjectDTO project, BindingResult bindingResult, Model model){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("projects", projectService.listAllProjects());

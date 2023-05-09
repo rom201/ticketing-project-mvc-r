@@ -83,8 +83,8 @@ public class TaskController {
 
 
     @PostMapping("/update/{id}")  // {id} here should be same as in the Model field theSpring going to set that id
-//    public String updateTask(TaskDTO task) {
-    public String updateTask(@Valid @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model) {
+//    public String updateTask(TaskDTO task) {  //@Valid add late
+    public String updateTask( @ModelAttribute ("task") TaskDTO task, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
 
@@ -98,46 +98,46 @@ public class TaskController {
         return "redirect:/task/create";
     }
 
-//
-//    @GetMapping("/employee/pending-tasks")
-//    public String employeePendingTasks(Model model) {
-//        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
-//        return "task/pending-tasks";
-//    }
-//
-//    @GetMapping("/employee/edit/{id}")
-//    public String employeeEditTask(@PathVariable("id") Long id, Model model) {
-//
-//        model.addAttribute("task", taskService.findById(id));
-////        model.addAttribute("employees", userService.findEmployees());
-////        model.addAttribute("projects", projectService.findAllNonCompletedProjects());
-//        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
-//        model.addAttribute("statuses", Status.values());
-//
-//        return "task/status-update";
-//    }
-//
-//    @PostMapping("/employee/update/{id}")
-////    public String employeeUpdateTask(TaskDTO taskDTO) {
-//    public String employeeUpdateTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult bindingResult, Model model ) {
-//
-//        if(bindingResult.hasErrors()){
-//            model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
-//            model.addAttribute("statuses", Status.values());
-//            return "task/status-update";
-//        }
-////        System.out.println("looking for ID");
-////        System.out.println(taskDTO.toString());
-//
-//        taskService.updateStatus(taskDTO);
-//        return "redirect:/task/employee/pending-tasks";
-//    }
-//
-//    @GetMapping("/employee/archive")
-//    public String employeeArchivedTasks(Model model) {
-//        model.addAttribute("tasks", taskService.findAllTasksByStatus(Status.COMPLETE));
-//        return "task/archive";
-//    }
+
+    @GetMapping("/employee/pending-tasks")
+    public String employeePendingTasks(Model model) {
+        model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+        return "task/pending-tasks";
+    }
+
+    @GetMapping("/employee/edit/{id}")
+    public String employeeEditTask(@PathVariable("id") Long id, Model model) {
+
+        model.addAttribute("task", taskService.findById(id));
+//        model.addAttribute("employees", userService.findEmployees());
+//        model.addAttribute("projects", projectService.findAllNonCompletedProjects());
+        model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+        model.addAttribute("statuses", Status.values());
+
+        return "task/status-update";
+    }
+
+    @PostMapping("/employee/update/{id}")
+//    public String employeeUpdateTask(TaskDTO taskDTO) {  // @Valid need add here later
+    public String employeeUpdateTask( @ModelAttribute("task") TaskDTO taskDTO, BindingResult bindingResult, Model model ) {
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+            model.addAttribute("statuses", Status.values());
+            return "task/status-update";
+        }
+//        System.out.println("looking for ID");
+//        System.out.println(taskDTO.toString());
+
+        taskService.updateStatus(taskDTO);
+        return "redirect:/task/employee/pending-tasks";
+    }
+
+    @GetMapping("/employee/archive")
+    public String employeeArchivedTasks(Model model) {
+        model.addAttribute("tasks", taskService.listAllTasksByStatus(Status.COMPLETE));
+        return "task/archive";
+    }
 
 
 
