@@ -18,37 +18,35 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+//    @Bean
+//    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+//
 
-
-        List<UserDetails> userList = new ArrayList<>();
-
-        userList.add(
-                new User("roma", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
-
-        userList.add(
-                new User("toma", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
-
-        return new InMemoryUserDetailsManager(userList);
-
-    }
+//        List<UserDetails> userList = new ArrayList<>();
+//
+//        userList.add(
+//                new User("roma", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+//
+//        userList.add(
+//                new User("toma", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
+//
+//        return new InMemoryUserDetailsManager(userList);
+//
+//    }
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
 
         return http
                 .authorizeRequests()
-                .antMatchers("/user/**").hasRole("ADMIN")
-                .antMatchers("/project/**").hasRole("MANAGER")
-                .antMatchers("/task/employee/**").hasRole("Employee")
-                .antMatchers("/task/**").hasRole("MANAGER")
+//                .antMatchers("/user/**").hasRole("Admin")  // this method add ROLE_  and we need add this in data.sql but hasAuthority no need ROLE_
+                .antMatchers("/user/**").hasAuthority("Admin")
+                .antMatchers("/project/**").hasAuthority("Manager")
+                .antMatchers("/task/employee/**").hasAuthority("Employee")
+                .antMatchers("/task/**").hasAuthority("Manager")
 
                 //                .antMatchers("/task/**").hasAnyRole("EMPLOYEE","ADMIN")
 //                .antMatchers("task/**").hasAuthority("ROLE_EMPLOYEE")
-
-
-
 
                 .antMatchers(
                         "/",

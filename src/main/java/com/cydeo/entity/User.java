@@ -27,7 +27,9 @@ public class User extends BaseEntity{
     private String phone;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
