@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-    private User user;
+    private User user; //has a relation, we need access to user properties
 
     public UserPrincipal(User user) {
         this.user = user;

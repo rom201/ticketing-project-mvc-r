@@ -80,8 +80,9 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/login")
                 .and()
                     .rememberMe()
-                    .key("cydeo")
-                    .userDetailsService(securityService)
+                        .tokenValiditySeconds(120)
+                        .key("cydeo")
+                        .userDetailsService(securityService)//remember what user we have
                 .and().build();
 
 
